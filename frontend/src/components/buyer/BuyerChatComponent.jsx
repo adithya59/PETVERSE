@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Send } from "lucide-react"
+import API_BASE_URL from "@/config";
 
-const socket = io("http://localhost:5501");
+const socket = io(API_BASE_URL);
 
 const BuyerChatComponent = () => {
   const { buyerId, sellerId } = useParams();

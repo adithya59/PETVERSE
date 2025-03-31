@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { enqueueSnackbar } from "notistack";
+import API_BASE_URL from "@/config.js"
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -37,7 +38,7 @@ const SignupPage = () => {
 
     try {
       const { error } = await axios.post(
-        "http://localhost:5501/api/users/signup", // Change URL as needed
+        `${API_BASE_URL}/api/users/signup`, // Change URL as needed
         { name, email, password, role }
       );
 

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { enqueueSnackbar } from "notistack";
+import API_BASE_URL from "@/config.js"
 
 const ProductDetails = () => {
   const { productId } = useParams(); // Get productId from URL
@@ -13,7 +14,7 @@ const ProductDetails = () => {
   useEffect(() => {
     // Fetch product details
     axios
-      .get(`http://localhost:5501/api/products/${productId}`)
+      .get(`${API_BASE_URL}/api/products/${productId}`)
       .then((response) => {
         setProduct(response.data.data);
         setLoading(false);

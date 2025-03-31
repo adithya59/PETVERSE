@@ -5,6 +5,7 @@ import axios from "axios";
 import CarouselList from "@/components/buyer/CarouselList";
 import Section from "@/components/buyer/Section";
 import { Dog, CatIcon, Bird, Bone, Scissors, Shapes, Search } from "lucide-react";
+import API_BASE_URL from "@/config.js"
 
 const Buyer = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,7 +17,7 @@ const Buyer = () => {
     // Fetch pets from backend API
     setLoading(true);
     axios
-      .get("http://localhost:5501/api/pets/")
+      .get(`${API_BASE_URL}/api/pets/`)
       .then((res) => {
         setPets(res.data.data);
         setLoading(false);

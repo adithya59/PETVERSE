@@ -3,6 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import API_BASE_URL from "@/config.js"
 
 const ImageUploader = ({ onUpload }) => {
   const [images, setImages] = useState([]);
@@ -24,7 +25,7 @@ const ImageUploader = ({ onUpload }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5501/api/upload",
+        `${API_BASE_URL}/api/upload`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

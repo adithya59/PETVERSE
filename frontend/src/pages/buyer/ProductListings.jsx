@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "@/components/layout/Header";
 import ProductCard from "@/components/layout/ProductCard";
+import API_BASE_URL from "@/config.js"
 
 const ProductListings = () => {
   const { category } = useParams();
@@ -15,7 +16,7 @@ const ProductListings = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5501/api/products")
+      .get(`${API_BASE_URL}/api/products`)
       .then((res) => {
         const filtered = category
           ? res.data.data.filter((product) => product.category === category)

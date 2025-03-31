@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AuthContext } from "@/context/Authcontext";
 import { enqueueSnackbar } from "notistack";
+import API_BASE_URL from "@/config.js"
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ const LoginPage = () => {
     try {
       // Validate the role
       const roleValidationResponse = await axios.post(
-        "http://localhost:5501/api/users/validate_role",
+        `${API_BASE_URL}/api/users/validate_role`,
         { email, role }
       );
 
@@ -37,7 +38,7 @@ const LoginPage = () => {
 
       // Proceed with login
       const { data } = await axios.post(
-        "http://localhost:5501/api/users/login",
+        `${API_BASE_URL}/api/users/login`,
         { email, password, role }
       );
       localStorage.setItem("userId", data.user.id);

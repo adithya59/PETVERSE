@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 // import ChatComponent from "../components/ChatComponent";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@/context/Authcontext"; // Import authentication context
+import API_BASE_URL from "@/config";
 
 const PurchasePage = () => {
     const { petId } = useParams();  // Get petId from URL
@@ -14,7 +15,7 @@ const PurchasePage = () => {
         if (!user) return; // Ensure user is authenticated before fetching details
 
         // Fetch pet details from backend
-        fetch(`http://localhost:5501/pets/${petId}`)
+        fetch(`${API_BASE_URL}/api/pets/${petId}`)
             .then((res) => res.json())
             .then((data) => {
                 setPetDetails(data);

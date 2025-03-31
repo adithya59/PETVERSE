@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { User, Inbox } from "lucide-react";
+import API_BASE_URL from "@/config.js"
 
 const SellerChatList = ({ onNavigate }) => {
   const [chats, setChats] = useState([]);
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    fetch(`http://localhost:5501/api/chats/${userId}`)
+    fetch(`${API_BASE_URL}/api/chats/${userId}`)
       .then((res) => res.json())
       .then((data) => setChats(data))
       .catch((error) => {

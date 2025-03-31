@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SellerPetCard from "../../components/layout/SellerPetCard";
+import API_BASE_URL from "@/config.js"
 
 const PetList = ({onNavigateToEdit}) => {
   const [pets, setPets] = useState([]);
@@ -10,7 +11,7 @@ const PetList = ({onNavigateToEdit}) => {
  useEffect(() => {
    setLoading(true);
    axios
-    .get("http://localhost:5501/api/pets")
+    .get(`${API_BASE_URL}/api/pets`)
     .then((res) => {
       setPets(res.data.data);
       setLoading(false);

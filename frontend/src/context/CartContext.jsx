@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import API_BASE_URL from "@/config.js"
+
 // Create Context
 export const CartContext = createContext();
 
@@ -12,7 +14,7 @@ export const CartProvider = ({ children }) => {
     const userId = localStorage.getItem("userId");
     if (userId) {
       axios
-        .get(`http://localhost:5501/api/cart/get/${userId}`)
+        .get(`${API_BASE_URL}/api/cart/get/${userId}`)
         .then((res) => setCart(res.data.items))
         .catch((err) => console.error("Error fetching cart:", err));
     }
@@ -24,7 +26,7 @@ export const CartProvider = ({ children }) => {
       const userId = localStorage.getItem("userId");
       if (!userId) return alert("Please log in first!");
 
-      const res = await axios.post(`http://localhost:5501/api/cart/add`, {
+      const res = await axios.post(`${API_BASE_URL}/api/cart/add`, {
         userId,
         ...item,
       });
@@ -46,7 +48,7 @@ export const CartProvider = ({ children }) => {
       if (!userId) return alert("Please log in first!");
 
       const res = await axios.delete(
-        `http://localhost:5501/api/cart/${userId}/${itemId}`,
+        `${API_BASE_URL}/api/cart/${userId}/${itemId}`,
         {
           userId,
           itemId,
@@ -64,7 +66,7 @@ export const CartProvider = ({ children }) => {
       const userId = localStorage.getItem("userId");
       if (!userId) return alert("Please log in first!");
 
-      const res = await axios.post(`http://localhost:5501/api/cart/update`, {
+      const res = await axios.post(`${API_BASE_URL}/api/cart/update`, {
         userId,
         itemId,
         quantity: newQuantity,

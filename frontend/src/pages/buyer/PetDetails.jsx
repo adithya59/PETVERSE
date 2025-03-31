@@ -16,6 +16,7 @@ import { Carousel, CarouselItem } from "@/components/ui/carousel";
 import { Heart, ShoppingCart } from "lucide-react";
 import { CartContext } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
+import API_BASE_URL from "@/config.js"
 
 const PetDetails = () => {
   const { petId } = useParams();
@@ -28,7 +29,7 @@ const PetDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5501/api/pets/${petId}`)
+      .get(`${API_BASE_URL}/api/pets/${petId}`)
       .then((response) => {
         setPet(response.data.data);
         setLoading(false);

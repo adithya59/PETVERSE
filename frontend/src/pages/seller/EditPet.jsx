@@ -16,6 +16,7 @@ import ImageUploader from "@/components/ImageUploader";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { Label } from "@/components/ui/label";
+import API_BASE_URL from "@/config.js"
 
 export default function EditPet({ onBack, pet }) {
   //Iwant this pet inside useEffect
@@ -32,7 +33,7 @@ export default function EditPet({ onBack, pet }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5501/api/pets/${pet}`).then((res) => {
+    axios.get(`${API_BASE_URL}/api/pets/${pet}`).then((res) => {
       setId(res.data.data._id);
       setName(res.data.data.name);
       setCategory(res.data.data.category);
@@ -68,7 +69,7 @@ export default function EditPet({ onBack, pet }) {
       seller: sellerName,
     };
     axios
-      .put(`http://localhost:5501/api/pets/${id}`, petData)
+      .put(`${API_BASE_URL}/api/pets/${id}`, petData)
       .then(() => {
         enqueueSnackbar("Edit Successfully saved!", { variant: "success" });
         navigate(0);

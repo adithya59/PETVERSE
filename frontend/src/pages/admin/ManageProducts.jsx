@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import ImageUploader from "@/components/ImageUploader";
 import { enqueueSnackbar } from "notistack";
+import API_BASE_URL from "@/config.js"
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ const ManageProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(`http://localhost:5501/api/products?sellerId=${sellerId}`);
+      const res = await axios.get(`${API_BASE_URL}/api/products?sellerId=${sellerId}`);
       setProducts(res.data.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -27,7 +28,7 @@ const ManageProducts = () => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
     try {
-      await axios.delete(`http://localhost:5501/api/products/${productId}`, {
+      await axios.delete(`${API_BASE_URL}/api/products/${productId}`, {
         data: { sellerId }, // ✅ Send seller ID for verification
       });
 
@@ -48,7 +49,7 @@ const ManageProducts = () => {
     e.preventDefault();
     try {
       console.log(editingProduct)
-      await axios.put(`http://localhost:5501/api/products/${editingProduct._id}`, {
+      await axios.put(`${API_BASE_URL}/api/products/${editingProduct._id}`, {
         ...editingProduct
       });
 

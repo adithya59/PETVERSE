@@ -2,6 +2,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import { supabase } from "../utils/supabaseClient.js";
+import dotenv from "dotenv";
+
+dotenv.config();
+console.log(process.env.BACKEND_URL)
 
 // SignUp with Email Confirmation
 const signUp = async (req, res) => {
@@ -19,7 +23,7 @@ const signUp = async (req, res) => {
       email,
       password,
       options: {
-        emailRedirectTo: `http://localhost:5501/api/users/confirmEmail?email=${email}`,
+        emailRedirectTo: `${process.env.BACKEND_URL}/api/users/confirmEmail?email=${email}`,
       },
     });
     if (error) throw error;
@@ -67,7 +71,7 @@ const confirmEmail = async (req, res) => {
         <head><title>Email Confirmed</title></head>
         <body style="font-family: Arial, sans-serif; text-align: center; margin-top: 50px;">
           <h1>Email Verified Successfully! 🎉</h1>
-          <p>You can now <a href="http://localhost:5173/login">log in</a>.</p>
+          <p>You can now <a href=${process.env.FRONTEND_URL}/api/login>log in</a>.</p>
         </body>
       </html>
     `);

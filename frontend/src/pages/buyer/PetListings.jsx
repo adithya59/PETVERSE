@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PetCard from "@/components/layout/BuyerPetCard";
 import Header from "@/components/layout/Header";
 import axios from "axios";
+import API_BASE_URL from "@/config.js"
 
 const PetListing = () => {
   const { category } = useParams();
@@ -16,7 +17,7 @@ const PetListing = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5501/api/pets/")
+      .get(`${API_BASE_URL}/api/pets/`)
       .then((res) => {
         const filteredPets = category
           ? res.data.data.filter((pet) => String(pet.category) === category)

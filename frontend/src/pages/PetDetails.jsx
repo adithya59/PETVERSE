@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "@/config.js"
 
 const PetDetails = () => {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5501/api/pets/${id}`).then((res) => setPet(res.data));
+    axios.get(`${API_BASE_URL}/api/pets/${id}`).then((res) => setPet(res.data));
   }, [id]);
 
   const markAsCompleted = async (vaccineName) => {
     try {
-      await axios.put(`http://localhost:5501/api/pets/${pet._id}/vaccination`, { vaccineName });
+      await axios.put(`${API_BASE_URL}/api/pets/${pet._id}/vaccination`, { vaccineName });
       setPet({
         ...pet,
         vaccinations: pet.vaccinations.map((v) =>

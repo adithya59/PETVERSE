@@ -14,6 +14,7 @@ import { useState } from "react";
 import axios from "axios";
 import ImageUploader from "@/components/ImageUploader";
 import { enqueueSnackbar } from "notistack";
+import API_BASE_URL from "@/config.js"
 
 const ListProducts = () => {
 
@@ -36,7 +37,7 @@ const ListProducts = () => {
         };
         console.log(productData)
         axios
-          .post("http://localhost:5501/api/products", productData)
+          .post(`${API_BASE_URL}/api/products`, productData)
           .then(() => enqueueSnackbar("Product listed successfully!", {variant:"success"}))
           .catch((error) => {
             enqueueSnackbar(error.message, {variant:"error"});
