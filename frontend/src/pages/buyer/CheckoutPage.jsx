@@ -15,6 +15,7 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
@@ -35,16 +36,21 @@ const CheckoutPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!userId || !name || !phone || !paymentMethod || !totalAmount) {
+    if (
+      !userId ||
+      !name ||
+      !lastName ||
+      !phone ||
+      !paymentMethod ||
+      !totalAmount
+    ) {
       return enqueueSnackbar("All Fields are required.", {
         variant: "error",
       });
     }
 
-    if (/\d/.test(name)) {
-      return enqueueSnackbar("Name should not contain numbers!", {
-        variant: "error",
-      });
+    if (/\d/.test(name) || /\d/.test(lastName)) {
+      return enqueueSnackbar("Name should not contain numbers!", {variant: "error"});
     }
 
     if (pincode.length !== 6) {
@@ -52,7 +58,11 @@ const CheckoutPage = () => {
         variant: "error",
       });
     }
-
+    if (phone.length !== 10) {
+      return enqueueSnackbar("Enter a valid 10 digit phone number.", {
+        variant: "error",
+      });
+    } 
     const fullAddress = `${address1}, ${address2}, ${city}, ${state}, ${pincode}`;
 
     if (!fullAddress) {
@@ -63,7 +73,7 @@ const CheckoutPage = () => {
 
     const newOrder = {
       userId,
-      name,
+      name: `${name} ${lastName}`,
       phone,
       address: fullAddress,
       paymentMethod,
@@ -102,10 +112,17 @@ const CheckoutPage = () => {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
               <div className="flex flex-col space-y-2">
-                <Label>Full Name</Label>
+                <Label>First Name</Label>
                 <Input
-                  placeholder="Full name"
+                  placeholder="First name"
                   onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col space-y-2">
+                <Label>Last Name</Label>
+                <Input
+                  placeholder="Last name"
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
               <div className="flex flex-col space-y-2">

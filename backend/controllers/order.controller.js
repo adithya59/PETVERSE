@@ -9,6 +9,7 @@ export const placeOrder = async (req, res) => {
     const {
       userId,
       name,
+      lastname,
       phone,
       address,
       paymentMethod,
