@@ -119,7 +119,7 @@ const PetDetails = () => {
 
                 {/* Seller Info */}
                 <div className="mt-6 border-t pt-4">
-                  <p className="font-semibold text-lg">Seller: {pet.seller}</p>
+                  <p className="capitalize font-semibold text-lg">Seller: {pet.seller}</p>
                   {pet.sellerId && (
                     <p className="text-yellow-600 text-sm mt-2">
                       Seller Rating: ⭐ {pet.sellerId.rating?.toFixed(1) || "Not rated yet"}
