@@ -24,15 +24,16 @@ const ListProducts = () => {
     const [price, setPrice] = useState("")
     const [images, setImages] = useState([])
     const [description, setDescription] = useState("")
-    const key = 1
+    const [imageUploaderResetKey, setImageUploaderResetKey] = useState(0);
 
     const handleReset = () => {
       setName("")
       setCategory("")
       setPrice("")
       setDescription("")
+      setStock("")
       setImages([])
-      key = key + 1
+      setImageUploaderResetKey((prev) => prev+1)
     }
 
     const handleSubmit = async () => {
@@ -68,13 +69,13 @@ const ListProducts = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex flex-col space-y-2">
           <label className="text-sm font-medium">Product Name</label>
-          <Input placeholder="Enter Product name" onChange={(e) => setName(e.target.value)} />
+          <Input value={name} placeholder="Enter Product name" onChange={(e) => setName(e.target.value)} />
         </div>
 
         {/* Category */}
         <div className="flex flex-col space-y-2">
           <label className="text-sm font-medium">Category</label>
-          <Select onValueChange={(value) => setCategory(value)}>
+          <Select value={category} onValueChange={(value) => setCategory(value)}>
             <SelectTrigger>
               <SelectValue placeholder="Select Category" />
             </SelectTrigger>
@@ -88,19 +89,19 @@ const ListProducts = () => {
         </div>
         <div className="flex flex-col space-y-2">
           <label className="text-sm font-medium">Stock Quantity</label>
-          <Input placeholder="Enter stock quantity" type="number" onChange={(e) => setStock(e.target.value)} />
+          <Input value={stock} placeholder="Enter stock quantity" type="number" onChange={(e) => setStock(e.target.value)} />
         </div>
         <div className="flex flex-col space-y-2">
           <label className="text-sm font-medium">Price</label>
-          <Input placeholder="Enter price" type="number" onChange={(e) => setPrice(e.target.value)} />
+          <Input value={price} placeholder="Enter price" type="number" onChange={(e) => setPrice(e.target.value)} />
         </div>
         <div className="col-span-1 md:col-span-2 flex flex-col space-y-2">
           <label className="text-sm font-medium">Description</label>
-          <Textarea placeholder="Short description of the product" onChange={(e) => setDescription(e.target.value)} />
+          <Textarea value={description} placeholder="Short description of the product" onChange={(e) => setDescription(e.target.value)} />
         </div>
         <div className="col-span-1 md:col-span-2 flex flex-col space-y-2">
           <label className="text-sm font-medium">Upload Images</label>
-          <ImageUploader key={`${key}`} onUpload={(newImages) => setImages((prev) => [...prev, ...newImages])} />
+          <ImageUploader key={`prodimage-${imageUploaderResetKey}`} onUpload={(newImages) => setImages((prev) => [...prev, ...newImages])} />
         </div>
       </div>
       <Button className="mt-6 w-full" variant="default" onClick={handleSubmit}>
