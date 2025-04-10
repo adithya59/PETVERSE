@@ -24,6 +24,16 @@ const ListProducts = () => {
     const [price, setPrice] = useState("")
     const [images, setImages] = useState([])
     const [description, setDescription] = useState("")
+    const key = 1
+
+    const handleReset = () => {
+      setName("")
+      setCategory("")
+      setPrice("")
+      setDescription("")
+      setImages([])
+      key = key + 1
+    }
 
     const handleSubmit = async () => {
         if (images.length === 0) return alert("Please upload at least one image.");
@@ -38,7 +48,10 @@ const ListProducts = () => {
         console.log(productData)
         axios
           .post(`${API_BASE_URL}/api/products`, productData)
-          .then(() => enqueueSnackbar("Product listed successfully!", {variant:"success"}))
+          .then(() => {
+            enqueueSnackbar("Product listed successfully!", {variant:"success"})
+            handleReset()
+          })
           .catch((error) => {
             enqueueSnackbar(error.message, {variant:"error"});
           });
@@ -87,7 +100,7 @@ const ListProducts = () => {
         </div>
         <div className="col-span-1 md:col-span-2 flex flex-col space-y-2">
           <label className="text-sm font-medium">Upload Images</label>
-          <ImageUploader onUpload={(newImages) => setImages((prev) => [...prev, ...newImages])} />
+          <ImageUploader key={`${key}`} onUpload={(newImages) => setImages((prev) => [...prev, ...newImages])} />
         </div>
       </div>
       <Button className="mt-6 w-full" variant="default" onClick={handleSubmit}>
